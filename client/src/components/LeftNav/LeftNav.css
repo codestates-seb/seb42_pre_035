@@ -1,0 +1,174 @@
+.leftNav {
+    display: flex;
+    padding: 20px 0px 10px 10px;
+    height: 100%;
+    flex: 0.5;
+    max-width: 200px;
+    border-right: 1px solid #ddd;
+    margin-left: 300px;
+    /* width: 164px;
+    flex-shrink: 0;
+    z-index: var(--zi-dropdown);
+    box-shadow: 0 0 0 hsl(210deg 8% 5% / 5%);
+    transition: box-shadow ease-in-out .1s,transform ease-in-out .1s;
+    transform: translateZ(0);
+    box-sizing: border-box; */
+}
+
+.leftNavContainer {
+    margin: 10px 0;
+    display: flex;
+    width: 100%;
+}
+
+.leftNavOptions {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    /* position: sticky;
+    width: auto;
+    top: 0;
+    margin-bottom: var(--su8);
+    max-height: 100vh;
+    /* overflow-y: auto; */
+    top: var(--top-bar-allocated-space);
+    max-height: calc(100vh - var(--top-bar-allocated-space));
+}
+
+.leftNavOption {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    font-size: 14px;
+    width: 200px;
+}
+.leftNavHome {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 10px 0;
+    padding: 8px 6px 8px 8px;
+    font-size: 12px;
+    color: #000;
+    
+}
+
+.leftPublic {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    font-size: 12px;
+    color: rgba(0,0,0, 0.5);
+    padding: 8px 6px 8px 8px
+
+}
+
+p{
+    text-decoration: none;
+    color: rgba(0,0,0, 0.5);
+}
+
+p:hover {
+    color: #000;
+}
+
+.leftNavOption > p {
+    color: rgba(0,0,0, 0.5);
+    font-size: 14px;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 10px 0;
+
+}
+
+.linkTag {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    padding: 5px 0;
+    /* width: 200%; */
+}
+.question:hover {
+    border-right: 3px solid rgba(245,162,9);
+    cursor: pointer;
+}
+
+.tags:hover {
+    border-right: 3px solid rgba(245,162,9);
+    cursor: pointer;
+}
+
+.users:hover {
+    border-right: 3px solid rgba(245,162,9);
+    cursor: pointer;
+}
+
+.companies:hover {
+    border-right: 3px solid rgba(245,162,9);
+    cursor: pointer;
+}
+
+.leftNavHome:hover {
+    border-right: 3px solid rgba(245,162,9);
+    cursor: pointer;
+}
+
+.question:hover #Globe:nth-child(1) {
+    fill: black;
+  }
+
+.question:hover #Globe:nth-child(2) {
+  color: black;
+}
+
+.tags > p {
+    padding: 4px 4px 4px 30px;
+    margin: 5px 0;
+}
+
+.users > p {
+    padding: 4px 4px 4px 30px;
+    margin: 5px 0;
+}
+
+.companies > p {
+    padding: 4px 4px 4px 30px;
+    margin: 5px 0;
+}
+
+.tags > p:hover {
+    color: #000;
+}
+.companies > p:hover {
+    color: #000;
+}
+.users > p:hover {
+    color: #000;
+}
+
+.Globe {
+    width: 18px;
+    height: 18px;
+    fill: rgba(0,0,0, 0.5);
+    display: inline-flex;
+}
+
+.question {
+    display: flex;
+    flex: content;
+    margin: 5px 0;
+    padding: 8px 6px 8px 8px;
+}
+
+.leftNavHome:visited {
+ background-color: gray;
+}
+
+.Navbody {
+    width: 100%;
+    height: 100vh;
+}
