@@ -1,0 +1,31 @@
+.boxItem{
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(0px, 41.7303px, 0px);
+    display: flex;
+    border: 1px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    width: 98%;
+    padding: 15px 0px
+}
+
+.flexItem{
+  flex-basis: 50%;
+  margin-left: 10px;
+
+}
+
+.boxName{
+  font-size: 13px;
+  color: #000;
+}
+.fc500{
+  margin-left: 3px;
+  font-size: 13px;
+  color: #6A737C;
+}
+
+.mb12{
+  margin-bottom: 10px;
+}
