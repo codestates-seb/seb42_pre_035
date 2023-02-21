@@ -1,0 +1,63 @@
+.RightNav {
+ float: right;
+ width: 300px;
+ margin: 0 0 15px;
+ margin-top: 40px;
+ margin-right: 300px;
+}
+
+.RightNavbox > header {
+    display: flex;
+    padding: 12px 15px;
+    height: 100%;
+    flex: 0.5;
+    color: #525960;
+    border: 1px solid rgb(241, 229, 188);
+    background-color: rgb(251, 243, 213);
+    font: 13px "Noto Sans KR", sans-serif
+}
+
+.RightNavbox > ul {
+    padding: 10px 35px;
+    border: 1px solid rgb(241, 229, 188);
+    background-color: #faf5e6;
+    font: 13px "Noto Sans KR", sans-serif;
+    list-style-type: disc;
+    
+}
+
+.RightNavbox > li {
+    color: #525960;
+    margin: 12px 0px;
+    font: 13px "Noto Sans KR", sans-serif;
+    list-style-type: disc;
+}
+
+.filters > header {
+    color: #525960;
+    font: 15px inherit;
+    padding: 12px 15px;
+    background-color: #f8f9f9;
+    border-bottom: 1px black solid;
+    
+}
+
+
+.filters > ul {
+    color: #232629;
+    font: 13px;
+    padding: 4px 15px;
+
+}
+
+.filters > li {
+    color: #9fa6ad;
+    font: 13px;
+    margin: 12px 0px;
+}
+
+.filters {
+    padding: 14px 15px;
+    margin: 14px;
+    border: black solid 1px;
+}
