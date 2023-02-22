@@ -2,6 +2,8 @@ package com.team035.pre_project35.answer.service;
 
 import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.answer.repository.AnswerRepository;
+import com.team035.pre_project35.exception.BusinessLogicException;
+import com.team035.pre_project35.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,7 +56,7 @@ public class AnswerService {
     public Answer verifiedAnswer(int answerId){
 
         Optional<Answer> findAnswer = answerRepository.findById(answerId);
-        Answer answer = findAnswer.orElseThrow(()-> new RuntimeException("not found answer"));
+        Answer answer = findAnswer.orElseThrow(()-> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
         return answer;
     }

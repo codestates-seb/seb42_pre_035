@@ -1,6 +1,8 @@
 package com.team035.pre_project35.question.service;
 
 import com.team035.pre_project35.answer.entity.Answer;
+import com.team035.pre_project35.exception.BusinessLogicException;
+import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +60,8 @@ public class QuestionService {
     public Question verifiedQuestion(int questionId) {
 
         Optional<Question> question = questionRepository.findById(questionId);
-        Question findQuestion = question.orElseThrow(() -> new RuntimeException("Not found question"));
+        Question findQuestion = question.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return findQuestion;
     }

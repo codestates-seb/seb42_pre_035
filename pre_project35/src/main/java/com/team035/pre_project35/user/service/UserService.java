@@ -1,5 +1,7 @@
 package com.team035.pre_project35.user.service;
 
+import com.team035.pre_project35.exception.BusinessLogicException;
+import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.user.entity.User;
 import com.team035.pre_project35.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,7 @@ public class UserService {
     public User verifiedUser(int userId){
 
         Optional<User> user = userRepository.findById(userId);
-        User findUser = user.orElseThrow(()-> new RuntimeException("Not found"));
+        User findUser = user.orElseThrow(()-> new BusinessLogicException(ExceptionCode.USER_EXISTS));
 
         return findUser;
     }

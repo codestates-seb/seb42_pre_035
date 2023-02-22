@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ErrorResponse {
-    private List<FieldError> fieldErrors; // (1)
-    private List<ConstraintViolationError> violationErrors;  // (2)
+    private List<FieldError> fieldErrors;
+    private List<ConstraintViolationError> violationErrors;
 
-    // (3)
+
     private ErrorResponse(List<FieldError> fieldErrors, List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
