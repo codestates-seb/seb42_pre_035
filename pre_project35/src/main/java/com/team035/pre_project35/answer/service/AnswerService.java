@@ -3,6 +3,9 @@ package com.team035.pre_project35.answer.service;
 import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.answer.repository.AnswerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,9 +39,10 @@ public class AnswerService {
         return verifiedAnswer(answerId);
     }
 
-    public List<Answer> findAnswers(){
+    //페이지네이션 answerId asc
+    public Page<Answer> findAnswers(int page, int size){
 
-        return answerRepository.findAll();
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").ascending()));
     }
 
     public void deleteAnswer(int answerId){

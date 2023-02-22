@@ -5,8 +5,10 @@ import com.team035.pre_project35.question.dto.QuestionPostDto;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.mapper.QuestionMapper;
 import com.team035.pre_project35.question.service.QuestionService;
-import lombok.Getter;
+import com.team035.pre_project35.response.MultiResponseDto;
+import com.team035.pre_project35.response.PageInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -54,10 +56,14 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(){
-        List<Question> findQuestions = questionService.findQuestions();
+    public ResponseEntity getQuestions(@Positive @RequestParam int page,
+                                       @Positive @RequestParam int size){
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+        List<Question> questions = pageQuestions.getContent();
 
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDtos(findQuestions), HttpStatus.OK);
+        PageInfo pageInfo = new PageInfo(page, size, (int) pageQuestions.getTotalElements(), pageQuestions.getTotalPages());
+
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionToQuestionResponseDtos(questions), pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")

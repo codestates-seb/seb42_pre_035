@@ -10,8 +10,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserPostDto {
 
-    private int userId;
-
     @NotBlank(message = "공백이 아니어야 합니다.")
     private String name;
 

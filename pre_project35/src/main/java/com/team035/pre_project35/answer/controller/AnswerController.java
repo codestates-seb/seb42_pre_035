@@ -5,8 +5,11 @@ import com.team035.pre_project35.answer.dto.AnswerPostDto;
 import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.answer.mapper.AnswerMapper;
 import com.team035.pre_project35.answer.service.AnswerService;
+import com.team035.pre_project35.response.MultiResponseDto;
+import com.team035.pre_project35.response.PageInfo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,11 +47,15 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity getAnswers(){
+    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size){
 
-        List<Answer> answer = answerService.findAnswers();
+        Page<Answer> pageAnswer = answerService.findAnswers(page - 1, size);
+        List<Answer> answers = pageAnswer.getContent();
 
-        return new ResponseEntity<>(mapper.answerToResponseDtos(answer), HttpStatus.OK);
+        PageInfo pageInfo = new PageInfo(page, size, (int) pageAnswer.getTotalElements(), pageAnswer.getTotalPages());
+
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.answerToResponseDtos(answers), pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-Id}")

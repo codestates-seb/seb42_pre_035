@@ -2,11 +2,8 @@ package com.team035.pre_project35.question.entity;
 
 import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.audit.Auditable;
-import com.team035.pre_project35.comments.entity.Comments;
 import com.team035.pre_project35.user.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,9 +34,6 @@ public class Question extends Auditable {
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
-
-    @OneToMany(mappedBy = "question")
-    private List<Comments> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();

@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-Id") @Positive int userId){
+    public ResponseEntity getUser(@PathVariable("user-id") @Positive int userId){
 
         User findUser = userService.findUser(userId);
         return new ResponseEntity<>(mapper.userToUserResponseDto(findUser), HttpStatus.OK);

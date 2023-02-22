@@ -3,7 +3,6 @@ package com.team035.pre_project35.user.service;
 import com.team035.pre_project35.user.entity.User;
 import com.team035.pre_project35.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

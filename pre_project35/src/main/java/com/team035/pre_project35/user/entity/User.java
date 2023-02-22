@@ -2,14 +2,12 @@ package com.team035.pre_project35.user.entity;
 
 import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.audit.Auditable;
-import com.team035.pre_project35.comments.entity.Comments;
 import com.team035.pre_project35.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +37,5 @@ public class User extends Auditable {
 
     @OneToMany(mappedBy = "user")
     private List<Answer> answers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Comments> comments = new ArrayList<>();
 
 }

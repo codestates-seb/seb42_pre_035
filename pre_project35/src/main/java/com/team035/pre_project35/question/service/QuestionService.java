@@ -4,6 +4,9 @@ import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,9 +43,10 @@ public class QuestionService {
         return verifiedQuestion(questionId);
     }
 
-    public List<Question> findQuestions() {
+    //페이지네이션 questionId desc
+    public Page<Question> findQuestions(int page, int size) {
 
-        return questionRepository.findAll();
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
 
     public void deleteQuestion(int questionId) {
