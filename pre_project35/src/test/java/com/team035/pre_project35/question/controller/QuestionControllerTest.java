@@ -135,7 +135,7 @@ class QuestionControllerTest {
                 .andExpect(jsonPath("$.questionBody").value(patch.getQuestionBody()))
                 .andDo(document("patch-question",
                         preprocessRequest(prettyPrint()),
-                        preprocessResponse(),
+                        preprocessResponse(prettyPrint()),
                         pathParameters(
                                 parameterWithName("question-id").description("질문식별")
                         ),

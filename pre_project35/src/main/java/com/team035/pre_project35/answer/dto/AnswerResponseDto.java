@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class AnswerResponseDto {
-
+    private int answerId;
     private String answerBody;
 }

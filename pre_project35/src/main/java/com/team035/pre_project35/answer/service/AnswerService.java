@@ -9,16 +9,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-
+@Transactional
 @Service
-@RequiredArgsConstructor
 public class AnswerService {
 
 
     private final AnswerRepository answerRepository;
+
+    public AnswerService(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
 
     public Answer createAnswer (Answer answer){
 
