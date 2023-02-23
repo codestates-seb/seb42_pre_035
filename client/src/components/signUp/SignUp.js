@@ -13,7 +13,7 @@ function signUp() {
   const [passwordMessage, setPasswordMessage] = useState('');
   const [isPassword, setIsPassword] = useState(true);
 
-  const API_URL = 'https://67d1-125-247-122-218.jp.ngrok.io/users';
+  const API_URL = 'https://f6a2-125-247-122-218.jp.ngrok.io/users';
 
   // axios.defaults.withCredentials = true;
 
@@ -137,7 +137,7 @@ function signUp() {
             <form
               id="login-form"
               className="loginForm"
-              onSubmit={submit}
+              // onSubmit=
               // action="https://67d1-125-247-122-218.jp.ngrok.io/users"
               // method="POST"
             >
@@ -300,7 +300,7 @@ function signUp() {
                   className="signUpBtn"
                   id="submit-button"
                   name="submit-button"
-                  type="submit"
+                  onClick={submit}
                 >
                   Sign up
                 </button>
