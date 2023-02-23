@@ -23,10 +23,10 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -149,5 +149,68 @@ public class UserControllerTest {
                 );
 
 
+    }
+
+    @Test
+    public void getUserTest() throws Exception {
+
+        int userId = 1;
+
+        User user = new User("eee", "aaa@gmail.com", "1q2q3q4q");
+        user.setUserId(userId);
+
+        UserDto.Response response = new UserDto.Response(1, "eee", "aaa@gmail.com", "1q2q3q4q");
+
+        given(userService.findUser(Mockito.anyInt())).willReturn(new User());
+        given(userMapper.userToUserResponse(Mockito.any(User.class))).willReturn(response);
+
+        ResultActions actions =
+                mockMvc.perform(get("/users/{user-id}", userId).accept(MediaType.APPLICATION_JSON));
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(user.getName()))
+                .andExpect(jsonPath("$.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.password").value(user.getPassword()))
+                .andDo(document("get-user",
+                        pathParameters(
+                                parameterWithName("user-id").description("회원 식별자")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과").optional(),
+                                        fieldWithPath("userId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("패스워드")
+                                )
+                        )
+                ));
+    }
+
+//    @Test
+//    public void getUsersTest() throws Exception {
+//        User user1 = new User("aaa", "eee@gmail.com", "1q2q3q4q");
+//
+//        User user2 = new User("bbb", "fff@gmail.com", "5q6q7q8q");
+//
+//        List<UserDto.Response> responses = List.of(
+//                new UserDto.Response(1, "aaa", "eee@gmail.com", "1q2q3q4q"),
+//                new UserDto.Response(2, "bbb", "fff@gmail.com", "5q6q7q8q")
+//
+//        );
+//
+//        given(userService.findUser())
+//
+//    }
+
+    @Test
+    public void deleteUser() throws Exception {
+        int userId = 1;
+
+        doNothing().when(userService).deleteUser(userId);
+
+        ResultActions actions = mockMvc.perform(delete("/users/{user-id}", userId));
+        actions.andExpect(status().isNoContent())
+                .andDo(document("delete-user",
+                        pathParameters(parameterWithName("user-id").description("회원 식별자"))));
     }
 }

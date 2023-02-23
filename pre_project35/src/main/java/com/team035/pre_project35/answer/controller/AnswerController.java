@@ -6,8 +6,6 @@ import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.answer.mapper.AnswerMapper;
 import com.team035.pre_project35.answer.service.AnswerService;
 import com.team035.pre_project35.response.MultiResponseDto;
-import com.team035.pre_project35.response.PageInfo;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -53,12 +51,11 @@ public class AnswerController {
         Page<Answer> pageAnswer = answerService.findAnswers(page - 1, size);
         List<Answer> answers = pageAnswer.getContent();
 
-        PageInfo pageInfo = new PageInfo(page, size, (int) pageAnswer.getTotalElements(), pageAnswer.getTotalPages());
 
-        return new ResponseEntity<>(new MultiResponseDto<>(mapper.answerToResponseDtos(answers), pageInfo), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.answerToResponseDtos(answers), pageAnswer), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answer-Id}")
+    @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive int answerId){
 
         answerService.deleteAnswer(answerId);

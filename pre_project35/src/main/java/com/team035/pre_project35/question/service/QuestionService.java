@@ -1,22 +1,24 @@
 package com.team035.pre_project35.question.service;
 
-import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.exception.BusinessLogicException;
 import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.repository.QuestionRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 public class QuestionService {
+
+    public QuestionService(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     private final QuestionRepository questionRepository;
 

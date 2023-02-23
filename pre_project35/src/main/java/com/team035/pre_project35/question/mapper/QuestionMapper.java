@@ -1,21 +1,21 @@
 package com.team035.pre_project35.question.mapper;
 
 import com.team035.pre_project35.question.dto.QuestionDto;
-import com.team035.pre_project35.question.dto.QuestionPatchDto;
-import com.team035.pre_project35.question.dto.QuestionResponseDto;
 import com.team035.pre_project35.question.entity.Question;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring" ,unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
 
-    Question questionPostDtoToQuestion(QuestionDto.Post requestBody);
+    Question questionPostToQuestion(QuestionDto.Post requestBody);
 
-    Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto);
+    Question questionPatchToQuestion(QuestionDto.Patch requestBody);
 
-    QuestionResponseDto questionToquestionResponseDto(Question question);
+    QuestionDto.Response questionToQuestionResponse(Question question);
 
-    List<QuestionResponseDto> questionToQuestionResponseDtos(List<Question> questions);
+    List<QuestionDto.Response> questionToQuestionResponses(List<Question> questions);
+
 }
