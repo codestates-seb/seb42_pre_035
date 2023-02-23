@@ -38,4 +38,9 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user")
     private List<Answer> answers = new ArrayList<>();
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -4,22 +4,29 @@ import com.team035.pre_project35.exception.BusinessLogicException;
 import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.user.entity.User;
 import com.team035.pre_project35.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public User createUser(User user){
-
-        return userRepository.save(user);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+    public User createUser(User user){
+        User saveUser = userRepository.save(user);
+
+        return saveUser;
+    }
+    @Transactional(propagation = Propagation.REQUIRED , isolation = Isolation.SERIALIZABLE)
     public User updateUser(User user){
 
         User findUser = verifiedUser(user.getUserId());
