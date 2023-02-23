@@ -41,7 +41,7 @@ function Header() {
   };
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="headerContainer">
         <div className="headerLeft">
           <div className="headerLogo">
@@ -133,7 +133,7 @@ function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 export default Header;
