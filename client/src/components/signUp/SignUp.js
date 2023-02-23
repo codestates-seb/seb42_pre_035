@@ -1,14 +1,40 @@
 /* eslint-disable no-unused-vars */
 import { useState, useCallback } from 'react';
 import './SignUp.css';
+import axios from 'axios';
+
 function signUp() {
   // eslint-disable-next-line no-unused-vars
+  const [Name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [isemail, setIsemail] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
   const [isPassword, setIsPassword] = useState(true);
+
+  const API_URL = 'https://67d1-125-247-122-218.jp.ngrok.io/users';
+
+  // axios.defaults.withCredentials = true;
+
+  const submit = async () => {
+    await axios
+      .post(API_URL, {
+        name: Name,
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
+  };
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -111,8 +137,9 @@ function signUp() {
             <form
               id="login-form"
               className="loginForm"
-              action="/users/signup?ssrc=head"
-              method="POST"
+              onSubmit={submit}
+              // action="https://67d1-125-247-122-218.jp.ngrok.io/users"
+              // method="POST"
             >
               <input
                 type="hidden"
@@ -129,6 +156,7 @@ function signUp() {
                   <input
                     className="flex--item s-input"
                     type="text"
+                    onChange={onNameHandler}
                     name="display-name"
                     id="display-name"
                     data-is-teams="false"
@@ -272,6 +300,7 @@ function signUp() {
                   className="signUpBtn"
                   id="submit-button"
                   name="submit-button"
+                  type="submit"
                 >
                   Sign up
                 </button>

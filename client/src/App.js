@@ -1,13 +1,15 @@
 // import Home from './pages/Home';
-// import Signup from './pages/Signup';
+import Signup from './pages/Signup';
 import './css/App.css';
-import Question from './pages/Question';
+// import SearchPage from './pages/SearchPage';
+// import Question from './pages/Question';
 function App() {
   return (
     <div>
       {/* <Home /> */}
-      {/* <Signup /> */}
-      <Question />
+      <Signup />
+      {/* <Question /> */}
+      {/* <SearchPage /> */}
     </div>
   );
 }

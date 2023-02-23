@@ -3,8 +3,9 @@
     inset: 0px auto auto 0px;
     margin: 0px;
     transform: translate3d(0px, 41.7303px, 0px);
+    background-color: white;
     display: flex;
-    border: 1px solid rgb(225, 225, 225);
+    border: 1px solid rgb(225, 225, 225) !important;
     border-radius: 5px;
     width: 98%;
     padding: 15px 0px
