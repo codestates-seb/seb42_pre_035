@@ -64,7 +64,7 @@
  height: 430px;
 }
 
-.s-input, .s-textarea {
+.si-input, .s-textarea {
   width: 250px;
   margin: 0;
   padding: 0.3em;

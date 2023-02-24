@@ -5,6 +5,7 @@ import './css/App.css';
 import Home from './pages/Home';
 import SearchPage from './pages/SearchPage';
 import Question from './pages/Question';
+import Detail from './pages/Detail';
 function App() {
   return (
     <div>
@@ -13,8 +14,9 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/question" element={<Question />}></Route>
-          <Route path="/serch" element={<SearchPage />}></Route>
-          <Route path="/singup" element={<Signup />}></Route>
+          <Route path="/search" element={<SearchPage />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/questions" element={<Detail />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

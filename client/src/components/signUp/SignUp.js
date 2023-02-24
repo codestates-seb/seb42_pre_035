@@ -154,7 +154,7 @@ function signUp() {
                 </label>
                 <div className="flexRelative">
                   <input
-                    className="flex--item s-input"
+                    className="flex--item si-input"
                     type="text"
                     onChange={onNameHandler}
                     name="display-name"
@@ -162,7 +162,7 @@ function signUp() {
                     data-is-teams="false"
                   />
                 </div>
-                <p className="flex--item s-input-message js-error-message d-none"></p>
+                <p className="flex--item si-input-message js-error-message d-none"></p>
               </div>
               <div className="authItem">
                 <label className="flexItemLabel" htmlFor="email">
@@ -170,7 +170,7 @@ function signUp() {
                 </label>
                 <div className="flexRelative">
                   <input
-                    className="s-input"
+                    className="si-input"
                     id="email"
                     type="email"
                     onChange={onChangeEmail}
@@ -183,7 +183,7 @@ function signUp() {
                     aria-hidden="true"
                     className={
                       isemail
-                        ? 's-input-icon js-alert-icon d-none svg-icon iconAlertCircle'
+                        ? 'si-input-icon js-alert-icon d-none svg-icon iconAlertCircle'
                         : 'nullIcon'
                     }
                     width={18}
@@ -199,11 +199,11 @@ function signUp() {
                 Password
               </label>
               <div className="authItem">
-                <p className="flex--item s-input-message js-error-message d-none"></p>
+                <p className="flex--item si-input-message js-error-message d-none"></p>
 
                 <div className="flexRelative">
                   <input
-                    className="flex--item s-input"
+                    className="flex--item si-input"
                     type="password"
                     autoComplete="off"
                     onChange={onChangePassword}

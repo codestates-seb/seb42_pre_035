@@ -33,7 +33,6 @@
   align-items: center;
   height:100%;
 }
-
 .headerLogo > img {
   width: 150px;
   height: 30px;
@@ -41,12 +40,12 @@
   padding: 0px 3px;
 }
 
-.headerLogo:hover {
+.headerLeft:hover {
   background-color: #ddd;
   cursor: pointer;
 }
 
-.headerLeft > h3 {
+.headerContainer > h3 {
   font-weight: 400;
   font-size: 13px;
   margin: 0px 10px;
