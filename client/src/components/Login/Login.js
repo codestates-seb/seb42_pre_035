@@ -62,8 +62,8 @@ function Login() {
     return axios
       .post(API_URL, { email: email, password: password }, { headers })
       .then((response) => {
-        navigate('/');
         console.log(response);
+        // navigate('/');
         const accessToken = response.headers.get('Authorization').split(' ')[1];
         sessionStorage.setItem('accesstoken', accessToken);
         sessionStorage.setItem(

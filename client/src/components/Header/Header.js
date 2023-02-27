@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './Header.css';
 // import { create } from 'zustand';
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -96,7 +97,7 @@ function Header() {
           {open ? <InputBox /> : null}
         </div>
         <div className="headerRight">
-          <div className="headerRightContainer">
+          {/* <div className="headerRightContainer">
             <div className="headerRightIconUser">
               <img
                 src="https://www.gravatar.com/avatar/1d6089a9bd3ab137764e21e41ca771aa?s=48&amp;d=identicon&amp;r=PG"
@@ -158,6 +159,14 @@ function Header() {
               </div>
               {isOpen ? <UserMenu /> : null}
             </div>
+          </div> */}
+          <div className="userLogin">
+            <Link to="/login">
+              <button className="loginBtn">Log in</button>
+            </Link>
+            <Link to="/signup">
+              <button className="signupBtn">Sign up</button>
+            </Link>
           </div>
         </div>
       </div>

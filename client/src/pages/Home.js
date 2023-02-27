@@ -15,6 +15,7 @@ function Home() {
           <RightNav />
         </div>
       </div>
+      <footer></footer>
     </div>
   );
 }
