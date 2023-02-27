@@ -1,21 +1,49 @@
 package com.team035.pre_project35.question.mapper;
 
-import com.team035.pre_project35.question.dto.QuestionDto;
+import com.team035.pre_project35.answer.dto.AnswerResponseDto;
+import com.team035.pre_project35.answer.entity.Answer;
+import com.team035.pre_project35.question.dto.QuestionPatchDto;
+import com.team035.pre_project35.question.dto.QuestionPostDto;
+import com.team035.pre_project35.question.dto.QuestionResponseDto;
 import com.team035.pre_project35.question.entity.Question;
 import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring" ,unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface QuestionMapper {
 
-    Question questionPostToQuestion(QuestionDto.Post requestBody);
+    Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
 
-    Question questionPatchToQuestion(QuestionDto.Patch requestBody);
+    Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto);
 
-    QuestionDto.Response questionToQuestionResponse(Question question);
+    default QuestionResponseDto questionToquestionResponseDto(Question question){
 
-    List<QuestionDto.Response> questionToQuestionResponses(List<Question> questions);
+        if ( question == null ) {
+            return null;
+        }
 
+        QuestionResponseDto questionResponseDto = new QuestionResponseDto();
+//        questionResponseDto.setUserId(question.getUser().getUserId());
+        questionResponseDto.setQuestionId(question.getQuestionId());
+        questionResponseDto.setTitle(question.getTitle());
+        questionResponseDto.setQuestionBody(question.getQuestionBody());
+        questionResponseDto.setViewCount(question.getViewCount());
+        questionResponseDto.setVoteCount(question.getVoteCount());
+
+        List<Answer> answerList = question.getAnswers();
+        List<AnswerResponseDto> answerResponseDtoList = answerList.stream().map(answer -> {
+            AnswerResponseDto answerResponseDto = new AnswerResponseDto();
+            answerResponseDto.setAnswerId(answer.getAnswerId());
+            answerResponseDto.setAnswerBody(answer.getAnswerBody());
+            return answerResponseDto;
+        }).collect(Collectors.toList());
+
+        questionResponseDto.setAnswers(answerResponseDtoList);
+
+        return questionResponseDto;
+    }
+
+    List<QuestionResponseDto> questionToQuestionResponseDtos(List<Question> questions);
 }

@@ -1,6 +1,5 @@
 package com.team035.pre_project35.answer.mapper;
 
-import com.team035.pre_project35.answer.dto.AnswerDto;
 import com.team035.pre_project35.answer.entity.Answer;
 import java.util.ArrayList;
 import java.util.List;
