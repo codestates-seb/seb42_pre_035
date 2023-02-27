@@ -38,5 +38,8 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
-
+    public Question(String title, String questionBody) {
+        this.title = title;
+        this.questionBody = questionBody;
+    }
 }

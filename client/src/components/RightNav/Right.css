@@ -1,9 +1,9 @@
 .RightNav {
  float: right;
- width: 300px;
  margin: 0 0 15px;
- margin-top: 40px;
+ margin-top: 20px;
  margin-right: 300px;
+
 }
 
 .RightNavbox > header {
@@ -14,11 +14,14 @@
     color: #525960;
     border: 1px solid rgb(241, 229, 188);
     background-color: rgb(251, 243, 213);
-    font: 13px "Noto Sans KR", sans-serif
+    font: 12px "Noto Sans KR", sans-serif;
+    font-weight: bold;
+    border-bottom: none;
+    /* box-shadow gray; */
 }
 
 .RightNavbox > ul {
-    padding: 10px 35px;
+    padding: 20px 35px;
     border: 1px solid rgb(241, 229, 188);
     background-color: #faf5e6;
     font: 13px "Noto Sans KR", sans-serif;
@@ -34,30 +37,91 @@
 }
 
 .filters > header {
-    color: #525960;
-    font: 15px inherit;
-    padding: 12px 15px;
+    display: flex;
+    padding: 20px 15px 15px;
+    height: 100%;
+    flex: 0.5;
+    color: black;
+    border: 0.1px;
+    border-style:solid; 
+    border-color: hsl(210,8%,85%);
     background-color: #f8f9f9;
-    border-bottom: 1px black solid;
+    font: 15px "Noto Sans KR", sans-serif;
+    border-bottom: none;
     
 }
 
-
 .filters > ul {
-    color: #232629;
-    font: 13px;
-    padding: 4px 15px;
-
-}
-
-.filters > li {
-    color: #9fa6ad;
-    font: 13px;
-    margin: 12px 0px;
+    text-decoration: none; 
+    color: hsl(206,100%,40%); 
+    padding: 20px 15px;
+    font: 13px "Noto Sans KR", sans-serif;
+    border: 0.1px;
+    border-style:solid; 
+    border-color: hsl(210,8%,85%);
 }
 
 .filters {
-    padding: 14px 15px;
-    margin: 14px;
-    border: black solid 1px;
+    padding-top: 14px;
+
+}
+
+.watchedtags {
+    padding-top: 14px;
+}
+
+.watchedtags > ul {
+    color: #232629;
+    font: 13px;
+    padding: 20px 15px;
+    font: 13px "Noto Sans KR", sans-serif;
+    border: 0.1px;
+    border-style:solid; 
+    border-color: hsl(210,8%,85%);
+    text-align: center;
+    /* border-radius: ; */
+
+}
+
+.watchedtags > header {
+    padding: 20px 15px 15px;
+    color: black;
+    border: 0.1px;
+    border-style:solid; 
+    border-color: hsl(210,8%,85%);
+    background-color: #f8f9f9;
+    font: 15px "Noto Sans KR", sans-serif;
+    border-bottom: none;
+    
+}
+
+.watch {
+    text-align: center;
+    width: 48px;
+    height: 48px;
+    fill: hsl(206,85%,57.5%);
+}
+
+.watchatag {
+margin: 8px 80px;
+    padding: 9.6px ;
+    background-color: #e1ecf4;
+    box-shadow: hsla(0,0%,100%,0.7);
+color: #39739d;
+border-color: hsl(205,41%,63%);
+border-radius: 4%;
+}
+
+.watchatag > .p {
+    font: 12px;
+}
+
+.watchatag:hover {
+    background-color: hsl(205,41%,63%);
+    cursor: pointer;
+}
+
+.filters > ul > li:hover {
+    color:  hsl(206,100%,52%);
+    cursor: pointer;
 }

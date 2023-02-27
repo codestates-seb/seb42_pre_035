@@ -7,8 +7,10 @@ import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class AnswerService {
@@ -37,6 +39,12 @@ public class AnswerService {
     public Answer findAnswer (int answerId){
 
         return verifiedAnswer(answerId);
+    }
+
+    //페이지네이션 answerId asc
+    public Page<Answer> findAnswers(int page, int size){
+
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").ascending()));
     }
 
     public void deleteAnswer(int answerId){

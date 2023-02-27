@@ -34,4 +34,7 @@ public class Answer extends Auditable {
         this.question = question;
     }
 
+    public Answer(String answerBody) {
+        this.answerBody = answerBody;
+    }
 }

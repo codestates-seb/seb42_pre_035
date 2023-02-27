@@ -1,5 +1,6 @@
 package com.team035.pre_project35.question.service;
 
+import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.exception.BusinessLogicException;
 import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.question.entity.Question;
