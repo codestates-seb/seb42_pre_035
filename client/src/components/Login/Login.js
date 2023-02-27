@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { useState, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -29,7 +32,7 @@ function Login() {
     }
   }, []);
 
-  const API_URL = 'https://f6a2-125-247-122-218.jp.ngrok.io/users/login';
+  const API_URL = 'https://a973-125-247-122-218.jp.ngrok.io/users/login';
 
   const passwordhandler = (e) => {
     const passwordCurrent = e.target.value;
@@ -58,7 +61,8 @@ function Login() {
     return axios
       .post(API_URL, { email: email, password: password }, { headers })
       .then((response) => {
-        console.log(response.data);
+        navigate('/');
+        console.log(response);
         const accessToken = response.headers.get('Authorization').split(' ')[1];
         sessionStorage.setItem('accesstoken', accessToken);
         sessionStorage.setItem(
@@ -68,12 +72,8 @@ function Login() {
         // setIsLogin(true);
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          // setErrorMessage("The email or password is incorrect.");
-          // setEmail('');
-          // setPassword('');
-          console.log(err.response.data);
-        }
+        // if (err.response.status === 401) {
+        //   console.log(err.response.data);
       });
   };
 
@@ -165,7 +165,9 @@ function Login() {
         <div className="text">
           <div className="signupsup">
             <p>Don’t have an account?</p>
-            <p className="sup">Sign up</p>
+            <Link to="/signup">
+              <p className="sup">Sign up</p>
+            </Link>
           </div>
           <div className="signupsup2">
             <p>Are you an employer? </p>

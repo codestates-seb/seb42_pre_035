@@ -2,6 +2,7 @@ import './Header.css';
 import { useState, useRef, useEffect } from 'react';
 import InputBox from './InputBox';
 import UserMenu from '../UserMenu';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -44,14 +45,16 @@ function Header() {
     <header className="header">
       <div className="headerContainer">
         <div className="headerLeft">
-          <div className="headerLogo">
-            <img
-              src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
-              alt="logo"
-            />
-          </div>
-          <h3>Products</h3>
+          <Link to="/">
+            <div className="headerLogo">
+              <img
+                src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
+                alt="logo"
+              />
+            </div>
+          </Link>
         </div>
+        <h3>Products</h3>
         <div ref={searchRef} className="headerMiddle">
           <div className="headerSearchContainer">
             <svg

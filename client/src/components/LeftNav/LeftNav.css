@@ -49,8 +49,13 @@
     margin: 10px 0;
     padding: 8px 6px 8px 8px;
     font-size: 12px;
-    color: #000;
+    color: rgba(0,0,0, 0.5);
     
+}
+
+.leftNavHome:hover
+{
+    color:#000
 }
 
 .leftPublic {
@@ -63,12 +68,12 @@
 
 }
 
-p{
+.question > p{
     text-decoration: none;
     color: rgba(0,0,0, 0.5);
 }
 
-p:hover {
+.question > p:hover {
     color: #000;
 }
 
@@ -97,7 +102,7 @@ p:hover {
     cursor: pointer;
 }
 
-.tags:hover {
+.leftnavtags:hover {
     border-right: 3px solid rgba(245,162,9);
     cursor: pointer;
 }
@@ -125,22 +130,28 @@ p:hover {
   color: black;
 }
 
-.tags > p {
+.leftnavtags > p {
+    color: rgba(0,0,0, 0.5);
+    font-size: 14px;
     padding: 4px 4px 4px 30px;
     margin: 5px 0;
 }
 
 .users > p {
+    color: rgba(0,0,0, 0.5);
+    font-size: 14px;
     padding: 4px 4px 4px 30px;
     margin: 5px 0;
 }
 
 .companies > p {
+    color: rgba(0,0,0, 0.5);
+    font-size: 14px;
     padding: 4px 4px 4px 30px;
     margin: 5px 0;
 }
 
-.tags > p:hover {
+.leftnavtags > p:hover {
     color: #000;
 }
 .companies > p:hover {

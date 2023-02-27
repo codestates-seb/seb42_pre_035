@@ -3,7 +3,7 @@ body{
   box-sizing: border-box;
   background-color: hsl(210,8%,95%)
 }
-li{
+.mb0>li{
   list-style-type: disc;
   margin-left: 30px;
   font-size: 13px;
@@ -50,7 +50,7 @@ background-color: hsl(210,8%,95%)
   font-size: 12px;
   margin-bottom: 10px;
 }
-.s-input, .s-textarea {
+.qs-input, .s-textarea {
   width: 780px;
   margin: 0;
   padding: 0.6em 0.7em;
@@ -115,10 +115,16 @@ margin-left: -420px;
   font-size: 21px !important;
   margin-bottom: 8px;
 }
-p{
+.E1_span>p{
   margin-bottom: 1em;
   font-size: 15px;
 }
+.fs-body2{
+  margin-bottom: 1em;
+  font-size: 15px;
+  color: #000;
+}
+
 .mb0 {
   margin-bottom: 0 !important;
 }
@@ -159,7 +165,7 @@ p{
   height: 130px;
   background-position: right bottom !important;
 }
-.content{
+.content_01{
     width: 100%;
     max-width: 1264px;
     margin: 0;

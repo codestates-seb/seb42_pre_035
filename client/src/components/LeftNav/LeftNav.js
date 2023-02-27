@@ -27,7 +27,7 @@ function LeftNav() {
                   </svg>
                   <p id="Globe">Questions</p>
                 </div>
-                <div className="tags">
+                <div className="leftnavtags">
                   <p>Tags</p>
                 </div>
                 <div className="users">
