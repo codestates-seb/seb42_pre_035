@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import './Login.css';
 import { REDIRECT_URI } from '../Apiurl';
 
@@ -62,8 +63,8 @@ function Login() {
     return axios
       .post(API_URL, { email: email, password: password }, { headers })
       .then((response) => {
+        navigate('/');
         console.log(response);
-        // navigate('/');
         const accessToken = response.headers.get('Authorization').split(' ')[1];
         sessionStorage.setItem('accesstoken', accessToken);
         sessionStorage.setItem(

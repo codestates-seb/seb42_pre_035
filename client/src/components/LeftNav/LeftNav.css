@@ -32,8 +32,8 @@
     margin-bottom: var(--su8);
     max-height: 100vh;
     /* overflow-y: auto; */
-    top: var(--top-bar-allocated-space);
-    max-height: calc(100vh - var(--top-bar-allocated-space));
+    /* top: var(--top-bar-allocated-space);
+    max-height: calc(100vh - var(--top-bar-allocated-space)); */
 }
 
 .leftNavOption {
