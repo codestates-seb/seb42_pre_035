@@ -1,17 +1,15 @@
 package com.team035.pre_project35.question.service;
 
-import com.team035.pre_project35.answer.entity.Answer;
 import com.team035.pre_project35.exception.BusinessLogicException;
 import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.repository.QuestionRepository;
+import com.team035.pre_project35.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +17,7 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    final int SIZE = 30;
 
     public Question createQuestion(Question question) {
 
@@ -46,9 +45,9 @@ public class QuestionService {
     }
 
     //페이지네이션 questionId desc
-    public Page<Question> findQuestions(int page, int size) {
+    public Page<Question> findQuestions(int page) {
 
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
+        return questionRepository.findAll(PageRequest.of(page, SIZE, Sort.by("questionId").descending()));
     }
 
     public void deleteQuestion(int questionId) {
@@ -69,5 +68,11 @@ public class QuestionService {
     public void updateQuestionViewCount(Question question, int viewCount){
         question.setViewCount(viewCount + 1);
         questionRepository.save(question);
+    }
+
+    // 검색 기능
+    public Page<Question> searchQuestions(int page, String keyword){
+
+        return questionRepository.findByTitleContainingIgnoreCase(PageRequest.of(page, SIZE), keyword);
     }
 }

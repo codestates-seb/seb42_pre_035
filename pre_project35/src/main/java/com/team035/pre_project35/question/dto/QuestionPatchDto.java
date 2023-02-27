@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class QuestionPatchDto {
 
+    private int userId;
     private int questionId;
 
     private String title;

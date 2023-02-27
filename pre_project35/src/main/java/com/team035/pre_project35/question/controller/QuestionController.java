@@ -5,8 +5,6 @@ import com.team035.pre_project35.question.dto.QuestionPostDto;
 import com.team035.pre_project35.question.entity.Question;
 import com.team035.pre_project35.question.mapper.QuestionMapper;
 import com.team035.pre_project35.question.service.QuestionService;
-import com.team035.pre_project35.response.MultiResponseDto;
-import com.team035.pre_project35.response.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,14 +26,14 @@ public class QuestionController {
 
     private final QuestionMapper mapper;
 
-    @PostMapping
+    @PostMapping("/ask")
     public ResponseEntity postQuestion (@Valid @RequestBody QuestionPostDto questionPostDto){
         Question question = questionService.createQuestion(mapper.questionPostDtoToQuestion(questionPostDto));
 
         return new ResponseEntity<>(mapper.questionToquestionResponseDto(question), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{question-id}")
+    @PatchMapping("/{question-id}/edit")
     public ResponseEntity patchQuestion (@PathVariable("question-id") @Positive int questionId,
                                          @RequestBody QuestionPatchDto questionPatchDto){
 
@@ -56,14 +54,20 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size){
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+    public ResponseEntity getQuestions(@Positive @RequestParam int page){
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1);
         List<Question> questions = pageQuestions.getContent();
 
-        PageInfo pageInfo = new PageInfo(page, size, (int) pageQuestions.getTotalElements(), pageQuestions.getTotalPages());
+        return new ResponseEntity<>(mapper.questionToQuestionResponseDtos(questions), HttpStatus.OK);
+    }
 
-        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionToQuestionResponseDtos(questions), pageInfo), HttpStatus.OK);
+    //검색 기능
+    @GetMapping("/search")
+    public ResponseEntity searchQuestions(@Positive @RequestParam int page, String keyword){
+        Page<Question> pageQuestions = questionService.searchQuestions(page - 1, keyword);
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(mapper.questionToQuestionResponseDtos(questions), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")

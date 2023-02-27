@@ -1,12 +1,15 @@
 package com.team035.pre_project35.question.dto;
 
-import lombok.AllArgsConstructor;
+import com.team035.pre_project35.answer.dto.AnswerResponseDto;
 import lombok.Getter;
+import lombok.Setter;
+import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class QuestionResponseDto {
 
+    private int userId;
     private int questionId;
     private String title;
 
@@ -16,4 +19,5 @@ public class QuestionResponseDto {
 
     private int voteCount;
 
+    private List<AnswerResponseDto> answers;
 }

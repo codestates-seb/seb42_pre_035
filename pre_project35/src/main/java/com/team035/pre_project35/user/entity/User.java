@@ -32,6 +32,10 @@ public class User extends Auditable {
     @Column(length = 100, nullable = false)
     private String password;
 
+    //User의 권한 정보를 저장하기 위해 테이블 생성
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @OneToMany(mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 

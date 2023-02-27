@@ -30,4 +30,8 @@ public class Answer extends Auditable {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
+    public void addQuestion(Question question){
+        this.question = question;
+    }
+
 }
