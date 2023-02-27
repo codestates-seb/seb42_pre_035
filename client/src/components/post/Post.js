@@ -38,6 +38,57 @@ import axios from 'axios';
 
 // fetch('https://a973-125-247-122-218.jp.ngrok.io/users');
 
+// const createDOMPurify = require('dompurify');
+// const { JSDOM } = require('jsdom');
+
+// const window = new JSDOM('').window;
+// const DOMPurify = createDOMPurify(window);
+
+// module.exports.agoraStatesDiscussions = [
+//   ].map(discussion => {
+//   if (discussion.answer) {
+//     return {
+//       ...discussion,
+//       bodyHTML: DOMPurify.sanitize(discussion.bodyHTML),
+//       answer: {
+//         ...discussion.answer,
+//         bodyHTML: DOMPurify.sanitize(discussion.answer.bodyHTML)
+//       }
+//     }
+//   }
+
+//   return {
+//     ...discussion,
+//     bodyHTML: DOMPurify.sanitize(discussion.bodyHTML)
+//   }
+// })
+// })
+
+// const convertToDiscussion = (obj) => {
+//   const li = document.createElement('li'); // li 요소 생성
+//   li.className = 'discussion__container'; // 클래스 이름 지정
+
+//   const avatarWrapper = document.createElement('div');
+//   avatarWrapper.className = 'discussion__avatar--wrapper';
+//   const discussionContent = document.createElement('div');
+//   discussionContent.className = 'discussion__content';
+//   const discussionAnswered = document.createElement('div');
+//   discussionAnswered.className = 'discussion__answered';
+
+//   li.append(avatarWrapper, discussionContent, discussionAnswered);
+//   return li;
+// };
+
+// const render = (element) => {
+//   for (let i = 0; i < agoraStatesDiscussions.length; i += 1) {
+//     element.append(convertToDiscussion(agoraStatesDiscussions[i]));
+//   }
+//   return;
+// };
+
+// const ul = document.querySelector('ul.discussions__container');
+// render(ul);
+
 function Post() {
   const asd = async () => {
     axios

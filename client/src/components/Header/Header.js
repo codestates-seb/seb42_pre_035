@@ -1,14 +1,27 @@
 import './Header.css';
-import { useState, useRef, useEffect } from 'react';
+// import { create } from 'zustand';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import InputBox from './InputBox';
 import UserMenu from '../UserMenu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
+  // const useStore = create(() => ({
+  //   searchText: isText,
+  // }));
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isText, setIsText] = useState('');
   const searchRef = useRef(null);
   const userRef = useRef(null);
+  // const { searchText } = useStore();
+
+  const navigate = useNavigate();
+
+  const onChange = useCallback((e) => {
+    const Current = e.target.value;
+    setIsText(Current);
+  }, []);
 
   useEffect(() => {
     function handleOutside(e) {
@@ -40,6 +53,12 @@ function Header() {
   const click2 = () => {
     setIsOpen(!isOpen);
   };
+  const handleOnKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/search?q=${isText}`); // Enter 입력이 되면 클릭 이벤트 실행
+      window.location.reload();
+    }
+  };
 
   return (
     <header className="header">
@@ -66,7 +85,13 @@ function Header() {
             >
               <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
             </svg>
-            <input onClick={click} type="text" placeholder="Search..." />
+            <input
+              onClick={click}
+              onChange={onChange}
+              type="text"
+              placeholder="Search..."
+              onKeyPress={handleOnKeyPress}
+            />
           </div>
           {open ? <InputBox /> : null}
         </div>
@@ -133,6 +158,14 @@ function Header() {
               </div>
               {isOpen ? <UserMenu /> : null}
             </div>
+          </div>
+          <div className="userLogin">
+            <button className="loginBtn">
+              <Link to="/login">Log in</Link>
+            </button>
+            <button className="signupBtn">
+              <Link to="/signup">Sign up</Link>
+            </button>
           </div>
         </div>
       </div>

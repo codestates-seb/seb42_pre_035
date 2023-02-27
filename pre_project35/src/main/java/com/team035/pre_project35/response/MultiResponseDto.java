@@ -1,7 +1,7 @@
 package com.team035.pre_project35.response;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -11,8 +11,10 @@ public class MultiResponseDto<T> {
     private List<T> data;
     private PageInfo pageInfo;
 
-    public MultiResponseDto(List<T> data, PageInfo pageInfo) {
+    public MultiResponseDto(List<T> data, Page page) {
         this.data = data;
-        this.pageInfo = pageInfo;
+        this.pageInfo = new PageInfo(page.getNumber()+1 , page.getSize() ,page.getTotalElements(),
+                page.getTotalPages());
     }
 }
+

@@ -1,8 +1,6 @@
 package com.team035.pre_project35.answer.mapper;
 
-import com.team035.pre_project35.answer.dto.AnswerPatchDto;
-import com.team035.pre_project35.answer.dto.AnswerPostDto;
-import com.team035.pre_project35.answer.dto.AnswerResponseDto;
+import com.team035.pre_project35.answer.dto.AnswerDto;
 import com.team035.pre_project35.answer.entity.Answer;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,63 +9,65 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-22T14:33:00+0900",
+    date = "2023-02-24T01:59:17+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class AnswerMapperImpl implements AnswerMapper {
 
     @Override
-    public Answer ansewerPostDtoToAnswer(AnswerPostDto answerPostDto) {
-        if ( answerPostDto == null ) {
+    public Answer answerPostToAnswer(AnswerDto.Post requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Answer answer = new Answer();
 
-        answer.setAnswerBody( answerPostDto.getAnswerBody() );
+        answer.setAnswerBody( requestBody.getAnswerBody() );
 
         return answer;
     }
 
     @Override
-    public Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto) {
-        if ( answerPatchDto == null ) {
+    public Answer answerPatchToAnswer(AnswerDto.Patch requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Answer answer = new Answer();
 
-        answer.setAnswerId( answerPatchDto.getAnswerId() );
-        answer.setAnswerBody( answerPatchDto.getAnswerBody() );
+        answer.setAnswerId( requestBody.getAnswerId() );
+        answer.setAnswerBody( requestBody.getAnswerBody() );
 
         return answer;
     }
 
     @Override
-    public AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
+    public AnswerDto.Response answerToAnswerResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
+        int answerId = 0;
         String answerBody = null;
 
+        answerId = answer.getAnswerId();
         answerBody = answer.getAnswerBody();
 
-        AnswerResponseDto answerResponseDto = new AnswerResponseDto( answerBody );
+        AnswerDto.Response response = new AnswerDto.Response( answerId, answerBody );
 
-        return answerResponseDto;
+        return response;
     }
 
     @Override
-    public List<AnswerResponseDto> answerToResponseDtos(List<Answer> answers) {
+    public List<AnswerDto.Response> answerToAnswerResponses(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        List<AnswerDto.Response> list = new ArrayList<AnswerDto.Response>( answers.size() );
         for ( Answer answer : answers ) {
-            list.add( answerToAnswerResponseDto( answer ) );
+            list.add( answerToAnswerResponse( answer ) );
         }
 
         return list;
