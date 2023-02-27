@@ -26,9 +26,9 @@ public class AnswerController {
     public ResponseEntity postAnswer(@PathVariable("question-id") @Positive int questionId,
                                      @Valid @RequestBody AnswerPostDto answerPostDto){
 
-        Answer answer = answerService.createAnswer(mapper.ansewerPostDtoToAnswer(answerPostDto), questionId);
+        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(answerPostDto), questionId);
 
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.answerToAnswerResponse(answer), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{question-id}/{answer-id}")
@@ -40,7 +40,7 @@ public class AnswerController {
 
         Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(answerPatchDto));
 
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer),HttpStatus.OK);
+        return new ResponseEntity<>(mapper.answerToAnswerResponse(answer),HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}/{answer-Id}")

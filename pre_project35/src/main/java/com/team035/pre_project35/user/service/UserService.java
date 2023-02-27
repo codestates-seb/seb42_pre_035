@@ -1,6 +1,6 @@
 package com.team035.pre_project35.user.service;
 
-import com.team035.pre_project35.auth.utils.CustomAuthorityUtils;
+//import com.team035.pre_project35.auth.utils.CustomAuthorityUtils;
 import com.team035.pre_project35.exception.BusinessLogicException;
 import com.team035.pre_project35.exception.ExceptionCode;
 import com.team035.pre_project35.user.entity.User;
@@ -20,7 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
+//    private final CustomAuthorityUtils authorityUtils;
 
     public User createUser(User user){
 
@@ -32,8 +32,8 @@ public class UserService {
 
         //회원가입 시 User의 Role을 DB에 저장
         //회원의 권한정보 생성
-        List<String> roles = authorityUtils.createRoles(user.getEmail());
-        user.setRoles(roles);
+//        List<String> roles = authorityUtils.createRoles(user.getEmail());
+//        user.setRoles(roles);
 
         return userRepository.save(user);
     }
