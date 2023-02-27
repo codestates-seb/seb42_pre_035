@@ -1,13 +1,38 @@
 import './Header.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import InputBox from './InputBox';
 import UserMenu from '../UserMenu';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { REDIRECT_URI } from '../Apiurl';
 
 function Header() {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isText, setIsText] = useState('');
   const searchRef = useRef(null);
   const userRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const API_URL = `${REDIRECT_URI}questions/search?page=1&keyword=${isText}`;
+
+  const fetchData = async () => {
+    await axios
+      .get(API_URL, {
+        headers: {
+          'Content-Type': `application/json`,
+          'ngrok-skip-browser-warning': '69420',
+        },
+      })
+      .then(() => navigate('/search'))
+      .catch((error) => console.log(error));
+  };
+
+  const onChange = useCallback((e) => {
+    const Current = e.target.value;
+    setIsText(Current);
+  }, []);
 
   useEffect(() => {
     function handleOutside(e) {
@@ -39,19 +64,26 @@ function Header() {
   const click2 = () => {
     setIsOpen(!isOpen);
   };
+  const handleOnKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      fetchData(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+  };
 
   return (
     <header className="header">
       <div className="headerContainer">
         <div className="headerLeft">
-          <div className="headerLogo">
-            <img
-              src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
-              alt="logo"
-            />
-          </div>
-          <h3>Products</h3>
+          <Link to="/">
+            <div className="headerLogo">
+              <img
+                src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
+                alt="logo"
+              />
+            </div>
+          </Link>
         </div>
+        <h3>Products</h3>
         <div ref={searchRef} className="headerMiddle">
           <div className="headerSearchContainer">
             <svg
@@ -63,7 +95,13 @@ function Header() {
             >
               <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
             </svg>
-            <input onClick={click} type="text" placeholder="Search..." />
+            <input
+              onClick={click}
+              onChange={onChange}
+              type="text"
+              placeholder="Search..."
+              onKeyPress={handleOnKeyPress}
+            />
           </div>
           {open ? <InputBox /> : null}
         </div>
