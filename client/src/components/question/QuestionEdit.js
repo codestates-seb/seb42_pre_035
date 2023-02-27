@@ -3,12 +3,15 @@ import { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import './QuestionEdit.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { REDIRECT_URI } from '../Apiurl';
 
 const QuestionEdit = () => {
   const [title, setTitle] = useState('');
-  const [value, setValue] = useState('');
-  const API_URL = 'https://65f3-125-247-122-218.jp.ngrok.io/questions';
-  console.log(value);
+  const [questionBody, setValue] = useState('');
+  const navigate = useNavigate();
+  // const API_URL = ;
+
   // axios.defaults.withCredentials = true;
   const titleHandler = (e) => {
     setTitle(e.currentTarget.value);
@@ -16,12 +19,13 @@ const QuestionEdit = () => {
 
   const submit = async () => {
     await axios
-      .post(API_URL, {
+      .post(`${REDIRECT_URI}questions/ask`, {
         title: title,
-        questionBody: value,
+        questionBody: questionBody,
       })
       .then((res) => {
-        console.log(res.data);
+        navigate(`/questions/${res.data.questionId}`);
+        console.log(res.data.questionId);
       })
       .catch((error) => {
         console.log(error.response);
@@ -139,7 +143,7 @@ const QuestionEdit = () => {
                   Minimum 20 characters.
                 </p>
               </div>
-              <ReactQuill onChange={setValue} value={value} />
+              <ReactQuill onChange={setValue} value={questionBody} />
               <div className="flex--item">
                 <button
                   className="questionBtn"

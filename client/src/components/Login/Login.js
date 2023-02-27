@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
+import { REDIRECT_URI } from '../Apiurl';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ function Login() {
     }
   }, []);
 
-  const API_URL = 'https://f6a2-125-247-122-218.jp.ngrok.io/users/login';
+  const API_URL = `${REDIRECT_URI}users/login`;
 
   const passwordhandler = (e) => {
     const passwordCurrent = e.target.value;

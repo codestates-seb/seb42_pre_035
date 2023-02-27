@@ -6,7 +6,7 @@ import './Home.css';
 
 function SearchPage() {
   return (
-    <div>
+    <div className="hFlex">
       <Header />
       <div className="h">
         <LeftNav />

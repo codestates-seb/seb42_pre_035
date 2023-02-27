@@ -2,17 +2,81 @@ import RightNav from '../RightNav/RightNav';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './Questions.css';
+import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { REDIRECT_URI } from '../Apiurl';
+
+import styled from 'styled-components';
+import AnswerList from './AnswerList';
+const Top = styled.div`
+  margin-top: 10px;
+  border-top: 1px solid gray;
+`;
+
 function Question() {
+  // const questionId = useParams();
+  const { id } = useParams();
+  // eslint-disable-next-line no-unused-vars
+  const [question, setQuestion] = useState({});
+  const [answerBody, setAnswerBody] = useState('');
+
+  // eslint-disable-next-line no-useless-escape
+  // const str2 = question.questionBody.replaceAll(/\'/gi, '');
+
+  const fetchData = async () => {
+    await axios
+      .get(`${REDIRECT_URI}questions/${id}`, {
+        headers: {
+          'Content-Type': `application/json`,
+          'ngrok-skip-browser-warning': '69420',
+        },
+      })
+      .then((res) => setQuestion(res.data))
+      .catch((error) => console.log(error));
+  };
+
+  const submitAnswer = async () => {
+    await axios
+      .post(`${REDIRECT_URI}questions/${id} `, {
+        answerBody: answerBody,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setAnswerBody(' ');
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // 삽질의 흔적
+  // let chk_array = JSON.stringify(question.questionBody);
+  // console.log(chk_array);
+  // let post = undefined;
+  // if (chk_array) {
+  //   post = chk_array.replace(/"/g, '');
+  //   console.log(post);
+  // }
+  // let codes = post;
+
   return (
     <div>
       <div className="container_Q">
         <div className="flexItem-Q01">
           <div className="question-header">
             <h1 itemProp="name" className="headline_Q">
-              여기에 질문을 가져옵니다.
+              {question.title}
             </h1>
             <div className="side">
-              <button className="questionBtn">Ask Question</button>
+              <Link to="/questions">
+                <button className="questionsBtn">Ask Question</button>
+              </Link>
             </div>
           </div>
           <div className="flexSecond">
@@ -168,7 +232,11 @@ function Question() {
                 </div>
                 <div className="postLayoutR">
                   <div className="postBody" itemProp="text">
-                    <p>여기에 질문내용이 들어갑니다.</p>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: question.questionBody,
+                      }}
+                    ></div>
                   </div>
                   <div className="postTag">
                     <div className="post-taglist">
@@ -218,20 +286,25 @@ function Question() {
                 </div>
               </div>
             </div>
-            <div className="answers"></div>
+            <div className="answers">
+              <AnswerList />
+            </div>
             <div className="editorZone">
               <h1 className="bottom-notice">
                 Know someone who can answer? Share a link to this question email
                 , Twitter , or Facebook .
               </h1>
-              <h2 className="yourAnswer">Your Answer</h2>
-              <ReactQuill />
-              <div className="form-submit clear-both d-flex gsx gs4">
+              <Top>
+                {' '}
+                <h2 className="yourAnswer">Your Answer</h2>
+              </Top>
+              <ReactQuill onChange={setAnswerBody} value={answerBody} />
+              <div className="form-submit">
                 <button
                   id="submit-button"
-                  className="questionBtn"
+                  className="questionsBtn"
+                  onClick={submitAnswer}
                   type="submit"
-                  autoComplete="off"
                 >
                   Post Your Answer{' '}
                 </button>

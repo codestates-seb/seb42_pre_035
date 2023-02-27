@@ -2,6 +2,8 @@
 import { useState, useCallback } from 'react';
 import './SignUp.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { REDIRECT_URI } from '../Apiurl';
 
 function signUp() {
   // eslint-disable-next-line no-unused-vars
@@ -13,11 +15,12 @@ function signUp() {
   const [passwordMessage, setPasswordMessage] = useState('');
   const [isPassword, setIsPassword] = useState(true);
 
-  const API_URL = 'https://f6a2-125-247-122-218.jp.ngrok.io/users';
-
+  const API_URL = `${REDIRECT_URI}users`;
+  const navigate = useNavigate();
   // axios.defaults.withCredentials = true;
 
   const submit = async () => {
+    event.preventDefault();
     await axios
       .post(API_URL, {
         name: Name,
@@ -25,12 +28,24 @@ function signUp() {
         password: password,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
+      })
+      .finally((res) => {
+        if (isemail && isPassword) {
+          alert('가입에 성공하셨습니다.');
+          navigate('/login');
+        }
       });
   };
+  const userCreate = () => {
+    if (isemail && isPassword) alert('성공');
+    navigate('/login');
+  };
+  console.log('이메일' + isemail);
+  console.log('패스워드' + isPassword);
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -42,12 +57,12 @@ function signUp() {
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
 
-    if (!emailRegex.test(emailCurrent) && emailCurrent.length > 5) {
+    if (!emailRegex.test(emailCurrent) && emailCurrent.length > 1) {
       setEmailMessage(`${e.target.value} is not a valid email address.`);
-      setIsemail(true);
+      setIsemail(false);
     } else {
       setEmailMessage('');
-      setIsemail(false);
+      setIsemail(true);
     }
   }, []);
 
@@ -59,7 +74,7 @@ function signUp() {
     if (!passwordRegex.test(passwordCurrent) && passwordCurrent.length > 1) {
       setPasswordMessage('Please combine special characters and numbers.');
       setIsPassword(false);
-    } else if (passwordCurrent.length > 0) {
+    } else if (passwordCurrent.length > 8) {
       setPasswordMessage('this password is available.');
       setIsPassword(true);
     }
@@ -178,20 +193,6 @@ function signUp() {
                     maxLength={100}
                     name="email"
                   />
-
-                  <svg
-                    aria-hidden="true"
-                    className={
-                      isemail
-                        ? 'si-input-icon js-alert-icon d-none svg-icon iconAlertCircle'
-                        : 'nullIcon'
-                    }
-                    width={18}
-                    height={18}
-                    viewBox="0 0 18 18"
-                  >
-                    <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z" />
-                  </svg>
                 </div>
                 <p className="inputMessage">{emailMessage}</p>
               </div>
@@ -298,6 +299,7 @@ function signUp() {
               <div className="d-flex gs4 gsy fd-column js-auth-item ">
                 <button
                   className="signUpBtn"
+                  // {isDisabled ? 'signUpbtnNone' : 'signUpBtn'}
                   id="submit-button"
                   name="submit-button"
                   onClick={submit}

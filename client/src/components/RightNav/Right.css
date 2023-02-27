@@ -1,12 +1,17 @@
 .RightNav {
  float: right;
  margin: 0 0 15px;
- margin-top: 20px;
- margin-right: 300px;
+ margin-top: 80px;
+
 
 }
 
+
+
 .RightNavbox > header {
+  
+    border-top-right-radius:5px;
+    border-top-left-radius:5px;
     display: flex;
     padding: 12px 15px;
     height: 100%;

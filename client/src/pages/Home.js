@@ -8,11 +8,12 @@ function Home() {
   return (
     <div>
       <Header />
-
-      <div className="h">
-        <LeftNav />
-        <Main />
-        <RightNav />
+      <div className="hFlex">
+        <div className="h">
+          <LeftNav />
+          <Main />
+          <RightNav />
+        </div>
       </div>
     </div>
   );
