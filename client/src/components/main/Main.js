@@ -1,5 +1,6 @@
 import './main.css';
 import { Link } from 'react-router-dom';
+import Postlist from '../post/Postlist';
 
 function Main() {
   return (
@@ -50,6 +51,7 @@ function Main() {
           </div>
         </div>
       </div>
+      <Postlist />
     </div>
   );
 }

@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import { REDIRECT_URI } from '../Apiurl';
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -60,6 +62,8 @@ function Login() {
     return axios
       .post(API_URL, { email: email, password: password }, { headers })
       .then((response) => {
+        navigate('/');
+        console.log(response);
         const accessToken = response.headers.get('Authorization').split(' ')[1];
         sessionStorage.setItem('accesstoken', accessToken);
         sessionStorage.setItem(
@@ -69,12 +73,8 @@ function Login() {
         // setIsLogin(true);
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          // setErrorMessage("The email or password is incorrect.");
-          // setEmail('');
-          // setPassword('');
-          console.log(err.response.data);
-        }
+        // if (err.response.status === 401) {
+        //   console.log(err.response.data);
       });
   };
 
