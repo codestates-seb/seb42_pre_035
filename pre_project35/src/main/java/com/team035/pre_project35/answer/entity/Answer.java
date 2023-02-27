@@ -29,5 +29,7 @@ public class Answer extends Auditable {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
-
+    public Answer(String answerBody) {
+        this.answerBody = answerBody;
+    }
 }

@@ -1,8 +1,6 @@
 package com.team035.pre_project35.question.mapper;
 
-import com.team035.pre_project35.question.dto.QuestionPatchDto;
-import com.team035.pre_project35.question.dto.QuestionPostDto;
-import com.team035.pre_project35.question.dto.QuestionResponseDto;
+import com.team035.pre_project35.question.dto.QuestionDto;
 import com.team035.pre_project35.question.entity.Question;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,73 +9,73 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-02-22T14:33:00+0900",
+    date = "2023-02-24T01:59:17+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class QuestionMapperImpl implements QuestionMapper {
 
     @Override
-    public Question questionPostDtoToQuestion(QuestionPostDto questionPostDto) {
-        if ( questionPostDto == null ) {
+    public Question questionPostToQuestion(QuestionDto.Post requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Question question = new Question();
 
-        question.setTitle( questionPostDto.getTitle() );
-        question.setQuestionBody( questionPostDto.getQuestionBody() );
+        question.setTitle( requestBody.getTitle() );
+        question.setQuestionBody( requestBody.getQuestionBody() );
 
         return question;
     }
 
     @Override
-    public Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto) {
-        if ( questionPatchDto == null ) {
+    public Question questionPatchToQuestion(QuestionDto.Patch requestBody) {
+        if ( requestBody == null ) {
             return null;
         }
 
         Question question = new Question();
 
-        question.setQuestionId( questionPatchDto.getQuestionId() );
-        question.setTitle( questionPatchDto.getTitle() );
-        question.setQuestionBody( questionPatchDto.getQuestionBody() );
+        question.setQuestionId( requestBody.getQuestionId() );
+        question.setTitle( requestBody.getTitle() );
+        question.setQuestionBody( requestBody.getQuestionBody() );
 
         return question;
     }
 
     @Override
-    public QuestionResponseDto questionToquestionResponseDto(Question question) {
+    public QuestionDto.Response questionToQuestionResponse(Question question) {
         if ( question == null ) {
             return null;
         }
 
+        int viewCount = 0;
+        int voteCount = 0;
         int questionId = 0;
         String title = null;
         String questionBody = null;
-        int viewCount = 0;
-        int voteCount = 0;
 
+        viewCount = question.getViewCount();
+        voteCount = question.getVoteCount();
         questionId = question.getQuestionId();
         title = question.getTitle();
         questionBody = question.getQuestionBody();
-        viewCount = question.getViewCount();
-        voteCount = question.getVoteCount();
 
-        QuestionResponseDto questionResponseDto = new QuestionResponseDto( questionId, title, questionBody, viewCount, voteCount );
+        QuestionDto.Response response = new QuestionDto.Response( questionId, title, questionBody, viewCount, voteCount );
 
-        return questionResponseDto;
+        return response;
     }
 
     @Override
-    public List<QuestionResponseDto> questionToQuestionResponseDtos(List<Question> questions) {
+    public List<QuestionDto.Response> questionToQuestionResponses(List<Question> questions) {
         if ( questions == null ) {
             return null;
         }
 
-        List<QuestionResponseDto> list = new ArrayList<QuestionResponseDto>( questions.size() );
+        List<QuestionDto.Response> list = new ArrayList<QuestionDto.Response>( questions.size() );
         for ( Question question : questions ) {
-            list.add( questionToquestionResponseDto( question ) );
+            list.add( questionToQuestionResponse( question ) );
         }
 
         return list;
