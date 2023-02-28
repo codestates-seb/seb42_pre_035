@@ -5,6 +5,7 @@ import com.team035.pre_project35.user.dto.UserDto;
 import com.team035.pre_project35.user.entity.User;
 import com.team035.pre_project35.user.mapper.UserMapper;
 import com.team035.pre_project35.user.service.UserService;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 
+@Configuration
 @RestController
 @RequestMapping("/users")
 @Validated
