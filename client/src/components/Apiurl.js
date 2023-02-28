@@ -1,1 +1,1 @@
-export const REDIRECT_URI = 'https://4df7-125-247-122-218.jp.ngrok.io/';
+export const REDIRECT_URI = `${process.env.REACT_APP_API_URL}/`;
