@@ -20,7 +20,7 @@ function AnswerList() {
       .then((res) => {
         setAnswerBody(res.data);
 
-        console.log('List엔 무엇이?' + JSON.stringify(res.data));
+        // console.log('List엔 무엇이?' + JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);

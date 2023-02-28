@@ -1,33 +1,23 @@
+/* eslint-disable no-unused-vars */
 import './Header.css';
+// import { create } from 'zustand';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import InputBox from './InputBox';
 import UserMenu from '../UserMenu';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { REDIRECT_URI } from '../Apiurl';
 
 function Header() {
+  // const useStore = create(() => ({
+  //   searchText: isText,
+  // }));
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isText, setIsText] = useState('');
   const searchRef = useRef(null);
   const userRef = useRef(null);
+  // const { searchText } = useStore();
 
   const navigate = useNavigate();
-
-  const API_URL = `${REDIRECT_URI}questions/search?page=1&keyword=${isText}`;
-
-  const fetchData = async () => {
-    await axios
-      .get(API_URL, {
-        headers: {
-          'Content-Type': `application/json`,
-          'ngrok-skip-browser-warning': '69420',
-        },
-      })
-      .then(() => navigate('/search'))
-      .catch((error) => console.log(error));
-  };
 
   const onChange = useCallback((e) => {
     const Current = e.target.value;
@@ -66,7 +56,8 @@ function Header() {
   };
   const handleOnKeyPress = (e) => {
     if (e.key === 'Enter') {
-      fetchData(); // Enter 입력이 되면 클릭 이벤트 실행
+      navigate(`/search?q=${isText}`); // Enter 입력이 되면 클릭 이벤트 실행
+      window.location.reload();
     }
   };
 
@@ -106,7 +97,7 @@ function Header() {
           {open ? <InputBox /> : null}
         </div>
         <div className="headerRight">
-          <div className="headerRightContainer">
+          {/* <div className="headerRightContainer">
             <div className="headerRightIconUser">
               <img
                 src="https://www.gravatar.com/avatar/1d6089a9bd3ab137764e21e41ca771aa?s=48&amp;d=identicon&amp;r=PG"
@@ -168,6 +159,14 @@ function Header() {
               </div>
               {isOpen ? <UserMenu /> : null}
             </div>
+          </div> */}
+          <div className="userLogin">
+            <Link to="/login">
+              <button className="loginBtn">Log in</button>
+            </Link>
+            <Link to="/signup">
+              <button className="signupBtn">Sign up</button>
+            </Link>
           </div>
         </div>
       </div>

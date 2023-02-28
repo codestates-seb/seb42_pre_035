@@ -1,7 +1,7 @@
 import Header from '../components/Header/Header';
 import LeftNav from '../components/LeftNav/LeftNav';
-import RightNav from '../components/RightNav/RightNav';
 import Main from '../components/main/Main';
+import RightNav from '../components/RightNav/RightNav';
 import './Home.css';
 
 function Home() {
@@ -15,6 +15,7 @@ function Home() {
           <RightNav />
         </div>
       </div>
+      <footer></footer>
     </div>
   );
 }
