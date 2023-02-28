@@ -1,13 +1,28 @@
+/* eslint-disable no-unused-vars */
 import './Header.css';
-import { useState, useRef, useEffect } from 'react';
+// import { create } from 'zustand';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import InputBox from './InputBox';
 import UserMenu from '../UserMenu';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
+  // const useStore = create(() => ({
+  //   searchText: isText,
+  // }));
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isText, setIsText] = useState('');
   const searchRef = useRef(null);
   const userRef = useRef(null);
+  // const { searchText } = useStore();
+
+  const navigate = useNavigate();
+
+  const onChange = useCallback((e) => {
+    const Current = e.target.value;
+    setIsText(Current);
+  }, []);
 
   useEffect(() => {
     function handleOutside(e) {
@@ -39,19 +54,27 @@ function Header() {
   const click2 = () => {
     setIsOpen(!isOpen);
   };
+  const handleOnKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/search?q=${isText}`); // Enter 입력이 되면 클릭 이벤트 실행
+      window.location.reload();
+    }
+  };
 
   return (
     <header className="header">
       <div className="headerContainer">
         <div className="headerLeft">
-          <div className="headerLogo">
-            <img
-              src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
-              alt="logo"
-            />
-          </div>
-          <h3>Products</h3>
+          <Link to="/">
+            <div className="headerLogo">
+              <img
+                src="https://t1.daumcdn.net/cfile/tistory/9933A13359EAC02836"
+                alt="logo"
+              />
+            </div>
+          </Link>
         </div>
+        <h3>Products</h3>
         <div ref={searchRef} className="headerMiddle">
           <div className="headerSearchContainer">
             <svg
@@ -63,12 +86,18 @@ function Header() {
             >
               <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
             </svg>
-            <input onClick={click} type="text" placeholder="Search..." />
+            <input
+              onClick={click}
+              onChange={onChange}
+              type="text"
+              placeholder="Search..."
+              onKeyPress={handleOnKeyPress}
+            />
           </div>
           {open ? <InputBox /> : null}
         </div>
         <div className="headerRight">
-          <div className="headerRightContainer">
+          {/* <div className="headerRightContainer">
             <div className="headerRightIconUser">
               <img
                 src="https://www.gravatar.com/avatar/1d6089a9bd3ab137764e21e41ca771aa?s=48&amp;d=identicon&amp;r=PG"
@@ -130,6 +159,14 @@ function Header() {
               </div>
               {isOpen ? <UserMenu /> : null}
             </div>
+          </div> */}
+          <div className="userLogin">
+            <Link to="/login">
+              <button className="loginBtn">Log in</button>
+            </Link>
+            <Link to="/signup">
+              <button className="signupBtn">Sign up</button>
+            </Link>
           </div>
         </div>
       </div>

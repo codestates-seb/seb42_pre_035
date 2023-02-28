@@ -64,7 +64,7 @@
  height: 430px;
 }
 
-.s-input, .s-textarea {
+.si-input, .s-textarea {
   width: 250px;
   margin: 0;
   padding: 0.3em;
@@ -104,9 +104,19 @@
   margin-bottom: 5px;
 }
 .signUpBtn{
- 
+
   color: white;
   background-color: #0a95FF;
+  width: 100%;
+  height: 36.8px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  box-shadow:inset 0 1px 0 0 hsla(0,0%,100%,0.4);
+  margin: 12px;
+}
+.signUpbtnNone{
+  color: white;
+  background-color: #9e9e9e;
   width: 100%;
   height: 36.8px;
   border-radius: 3px;
@@ -121,6 +131,8 @@
   
   height: 36.8px;
 }
+
+
 .signUpflexItem{
 margin-bottom: 3px;
 }

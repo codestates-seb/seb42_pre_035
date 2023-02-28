@@ -1,21 +1,22 @@
-import './Search.css';
-import ResultContainer from './ResultContainer';
+import './main.css';
+import { Link } from 'react-router-dom';
+import Postlist from '../post/Postlist';
 
-function Search() {
+function Main() {
   return (
     <div id="content">
       <div className="mainBar">
         <div className="barTop">
           <div className="d-flex mb24 jc-space-between fw-wrap ai-start">
-            <h1 className="title">Search Results </h1>
+            <h1 className="title">Top Questions </h1>
             <div className="d-flex ai-center fl1 jc-end ml32">
               <div className="flex--item mr8">
                 <p className="js-advanced-tips-toggle">Advanced Search Tips</p>
               </div>
               <div className="ml12 aside-cta flex--item print:d-none">
-                <a href="/questions" className="askQuestionBtn">
+                <Link to="questions" className="askQuestionBtn">
                   Ask Question
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -49,9 +50,9 @@ function Search() {
             </div>
           </div>
         </div>
-        <ResultContainer />
       </div>
+      <Postlist />
     </div>
   );
 }
-export default Search;
+export default Main;

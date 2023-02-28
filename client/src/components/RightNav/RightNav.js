@@ -4,8 +4,8 @@ function RightNav() {
   return (
     <div className="RightNav">
       <div className="RightNavbox">
-        <header>The Overflow Blog</header>
-        <ul>
+        <header className="rightnavheader">The Overflow Blog</header>
+        <ul className="rightnavul">
           <li className="one">
             Serverless scales well, but most databases don’t sponsored post
           </li>
@@ -13,8 +13,8 @@ function RightNav() {
             Monitoring debt builds up faster than software teams can pay it off
           </li>
         </ul>
-        <header>Featured on Meta</header>
-        <ul>
+        <header className="rightnavheader_2">Featured on Meta</header>
+        <ul className="rightnavul_2">
           <li>Ticket smash for [status-review] tag: Part Deux</li>
           <li>
             We’ve added a Necessary cookies only option to the cookie consent
