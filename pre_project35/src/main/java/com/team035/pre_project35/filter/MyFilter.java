@@ -21,7 +21,7 @@ public class MyFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000, ec2-43-200-1-75.ap-northeast-2.compute.amazonaws.com:8080, http://pre-stackoverflow.s3-website.ap-northeast-2.amazonaws.com/");
         res.setHeader("Access-Control-Allow-Credentials", "true");
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
         res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, X-Requested-With, ngrok-skip-browser-warning, Access-Control-Allow-Origin");
