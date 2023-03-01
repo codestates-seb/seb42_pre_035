@@ -5,8 +5,8 @@
     flex: 0.5;
     width:164px;
     border-right: 1px solid #ddd;
-
-    
+    overflow-y: 100%;
+    position: sticky;
     /* 
     flex-shrink: 0;
     z-index: var(--zi-dropdown);
@@ -20,6 +20,7 @@
     margin: 0px 0;
     display: flex;
     width: 100%;
+
 }
 
 .leftNavOptions {
@@ -39,10 +40,12 @@
 .leftNavOption {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    margin: 1px 0;
     font-size: 14px;
     width: 100%;
 }
+
+
 .leftNavHome {
     width: 100%;
     display: flex;
@@ -50,14 +53,12 @@
     box-sizing: border-box;
     padding: 8px 6px 8px 8px;
     font-size: 12px;
-    color: rgba(0,0,0, 0.5);
+    /* color: rgba(0,0,0, 0.5); */
+    margin-top: 3px;
+    margin-bottom: 3px;
     
 }
 
-.leftNavHome:hover
-{
-    color:#000
-}
 
 .leftPublic {
     display: flex;
@@ -118,8 +119,10 @@
 }
 
 .leftNavHome:hover {
+    height: 100%;
     border-right: 3px solid rgba(245,162,9);
     cursor: pointer;
+    color:black
 }
 
 .question:hover #Globe:nth-child(1) {
@@ -175,9 +178,6 @@
     padding: 8px 6px 8px 8px;
 }
 
-.leftNavHome:visited {
- background-color: gray;
-}
 
 .Navbody {
     width: 164px;

@@ -2,21 +2,23 @@
 import axios from 'axios';
 import { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import './Login.css';
 import { REDIRECT_URI } from '../Apiurl';
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../Redux/auth';
 
 function Login() {
-  const navigate = useNavigate();
-
+  const [tokenCookie, setTokenCookie] = useCookies(['id']);
+  const [refreshCookie, setRefreshCookie] = useCookies(['Refresh']);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [emailMessage, setEmailMessage] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
-
   const [isEmail, setIsEmail] = useState(true);
   const [isPassword, setIsPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // // 이메일
   const onChangeEmail = useCallback((e) => {
@@ -44,12 +46,6 @@ function Login() {
 
   const loginHandler = () => {
     axios.defaults.withCredentials = true;
-    console.log('The link was clicked.');
-
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    };
 
     // if (!email || !password) {
     //   setEmail('');
@@ -59,20 +55,35 @@ function Login() {
     // } else {
     //   // setErrorMessage('');
     // }
-
+    const token = tokenCookie.id;
     return axios
-      .post(API_URL, { email: email, password: password }, { headers })
+      .post(
+        API_URL,
+        { email: email, password: password },
+        {
+          headers: {
+            'ngrok-skip-browser-warning': '69420',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       .then((response) => {
-        navigate('/');
-        console.log(response);
+        console.log(response.headers);
         const accessToken = response.headers.get('Authorization').split(' ')[1];
-        sessionStorage.setItem('accesstoken', accessToken);
-        sessionStorage.setItem(
-          'userInfoStorage',
-          JSON.stringify(response.data.data)
-        );
-        // setIsLogin(true);
+        const refreshToken = response.headers.get('Refresh');
+        const memberId = response.data.memberId;
+        setTokenCookie('Authorization', {
+          maxAge: 60 * 30000,
+        });
+        setRefreshCookie('Refresh', refreshToken, {
+          maxAge: 60 * 30000,
+        });
+        if (tokenCookie && refreshCookie) {
+          dispatch(authActions.login());
+        }
+        navigate('/');
       })
+
       .catch((err) => {
         // if (err.response.status === 401) {
         //   console.log(err.response.data);

@@ -6,7 +6,22 @@ import Home from './pages/Home';
 import SearchPage from './pages/SearchPage';
 import Question from './pages/Question';
 import Detail from './pages/Detail';
+import { authActions } from './Redux/auth';
+import { Cookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 function App() {
+  const dispatch = useDispatch();
+
+  const cookies = new Cookies();
+  useEffect(() => {
+    const Refresh = cookies.get('Refresh');
+    if (Refresh) {
+      dispatch(authActions.login());
+    } else {
+      dispatch(authActions.logout());
+    }
+  }, []);
   return (
     <div>
       <BrowserRouter>
