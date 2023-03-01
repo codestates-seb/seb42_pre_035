@@ -1,22 +1,24 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../Redux/auth';
 import './Login.css';
 import { REDIRECT_URI } from '../Apiurl';
 
 function Login() {
-  const navigate = useNavigate();
-
+  const [tokenCookie, setTokenCookie] = useCookies(['id']);
+  const [refreshCookie, setRefreshCookie] = useCookies(['Refresh']);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [emailMessage, setEmailMessage] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
-
   const [isEmail, setIsEmail] = useState(true);
   const [isPassword, setIsPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // // 이메일
   const onChangeEmail = useCallback((e) => {
@@ -44,12 +46,8 @@ function Login() {
 
   const loginHandler = () => {
     axios.defaults.withCredentials = true;
-    console.log('The link was clicked.');
+    // const token = tokenCookie.id;
 
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    };
     return axios
       .post(
         API_URL,
@@ -65,15 +63,19 @@ function Login() {
         }
       )
       .then((response) => {
-        navigate('/');
-        console.log(response);
         const accessToken = response.headers.get('Authorization').split(' ')[1];
-        sessionStorage.setItem('accesstoken', accessToken);
-        sessionStorage.setItem(
-          'userInfoStorage',
-          JSON.stringify(response.data.data)
-        );
-        // setIsLogin(true);
+        const refreshToken = response.headers.get('Refresh');
+        console.log(refreshToken);
+        setTokenCookie('id', accessToken, {
+          maxAge: 60 * 30000,
+        });
+        setRefreshCookie('Refresh', refreshToken, {
+          maxAge: 60 * 30000,
+        });
+        if (tokenCookie && refreshCookie) {
+          dispatch(authActions.login());
+        }
+        navigate('/');
       })
       .catch((err) => {
         // if (err.response.status === 401) {
