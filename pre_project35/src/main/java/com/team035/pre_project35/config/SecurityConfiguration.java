@@ -2,6 +2,8 @@ package com.team035.pre_project35.config;
 
 //import com.team035.pre_project35.auth.filter.JwtAuthenticationFilter;
 //import com.team035.pre_project35.auth.jwt.JwtTokenizer;
+import com.team035.pre_project35.auth.filter.JwtAuthenticationFilter;
+import com.team035.pre_project35.auth.jwt.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +25,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-//    private final JwtTokenizer jwtTokenizer;
+    private final JwtTokenizer jwtTokenizer;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -34,8 +36,8 @@ public class SecurityConfiguration {
                 .cors(withDefaults())
                 .formLogin().disable()  // JSON 포맷으로 Username과 Password를 전송하는 방식 사용, 폼 로그인 방식을 비활성화
                 .httpBasic().disable()
-//                .apply(new CustomFilterConfigurer())
-//                .and()
+                .apply(new CustomFilterConfigurer())
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll());
 
@@ -51,8 +53,10 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://66f8-125-247-122-218.jp.ngrok.io"));
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization","Refresh"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"));
         configuration.setAllowCredentials(true);
 
@@ -62,15 +66,15 @@ public class SecurityConfiguration {
         return source;
     }
 
-//    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity>{
-//        @Override
-//        public void configure(HttpSecurity builder) throws Exception{
-//            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-//
-//            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-//            jwtAuthenticationFilter.setFilterProcessesUrl("/users/login");
-//
-//            builder.addFilter(jwtAuthenticationFilter);
-//        }
-//    }
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity>{
+        @Override
+        public void configure(HttpSecurity builder) throws Exception{
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/users/login");
+
+            builder.addFilter(jwtAuthenticationFilter);
+        }
+    }
 }
