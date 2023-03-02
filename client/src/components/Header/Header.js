@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
 import './Header.css';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import InputBox from './InputBox';
