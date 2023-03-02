@@ -23,7 +23,7 @@ const Answer = ({ answer }) => {
           <h1>Answer</h1>
         </Top>
 
-        <div className="itemLeft">
+        <div className="itemLeft2">
           <div className="questionJs">
             <div className="postLayout">
               <div className="postLayoutL">

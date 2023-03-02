@@ -20,6 +20,11 @@ const QuestionEdit = () => {
   const submit = async () => {
     await axios
       .post(`${REDIRECT_URI}questions/ask`, {
+        headers: {
+          'Access-Control-Allow-Headers': '*',
+          'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+          'Content-Type': 'application/json',
+        },
         title: title,
         questionBody: questionBody,
       })

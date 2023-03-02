@@ -2,10 +2,13 @@ import { Cookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authActions } from '../Redux/auth';
+
 import './UserMenu.css';
+
 function UserMenu() {
   const cookies = new Cookies();
   const dispatch = useDispatch();
+
   const logoutHandler = () => {
     dispatch(authActions.logout());
     cookies.remove('Authorization');

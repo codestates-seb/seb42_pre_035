@@ -1,8 +1,10 @@
 import './main.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Postlist from '../post/Postlist';
 
 function Main() {
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
   return (
     <div id="content">
       <div className="mainBar">
@@ -14,7 +16,10 @@ function Main() {
                 <p className="js-advanced-tips-toggle">Advanced Search Tips</p>
               </div>
               <div className="ml12 aside-cta flex--item print:d-none">
-                <Link to="questions" className="askQuestionBtn">
+                <Link
+                  to={isAuth ? 'questions' : 'login'}
+                  className="askQuestionBtn"
+                >
                   Ask Question
                 </Link>
               </div>
@@ -25,27 +30,8 @@ function Main() {
 
             <div className="flex--item">
               <div className=" d-flex s-btn-group js-filter-btn">
-                <a
-                  className="resultBtn hoverBtn flex--item"
-                  href="/search?tab=relevance&amp;q=dlsnditi&amp;searchOn=3"
-                  data-nav-xhref=""
-                  title="Search results with best match to search terms"
-                  data-value="relevance"
-                  data-shortcut=""
-                  aria-current="page"
-                >
-                  Relevance
-                </a>
-                <a
-                  className="resultBtn2 hoverBtn flex--item"
-                  href="/search?tab=newest&amp;q=dlsnditi&amp;searchOn=3"
-                  data-nav-xhref=""
-                  title="Newest search results"
-                  data-value="newest"
-                  data-shortcut=""
-                >
-                  Newest
-                </a>
+                <span className="resultBtn hoverBtn flex--item">Relevance</span>
+                <span className="resultBtn2 hoverBtn flex--item">Newest</span>
               </div>
             </div>
           </div>

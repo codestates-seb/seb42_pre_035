@@ -1,12 +1,13 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
-import { REDIRECT_URI } from '../Apiurl';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../Redux/auth';
+import './Login.css';
+import { REDIRECT_URI } from '../Apiurl';
 
 function Login() {
   const [tokenCookie, setTokenCookie] = useCookies(['id']);
@@ -41,25 +42,19 @@ function Login() {
   const passwordhandler = (e) => {
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
-    console.log(password);
   };
 
   const loginHandler = () => {
     axios.defaults.withCredentials = true;
+    // const token = tokenCookie.id;
 
-    // if (!email || !password) {
-    //   setEmail('');
-    //   setPassword('');
-    //   // setErrorMessage("Email or password cannot be empty.");
-    //   return;
-    // } else {
-    //   // setErrorMessage('');
-    // }
-    const token = tokenCookie.id;
     return axios
       .post(
         API_URL,
-        { email: email, password: password },
+        {
+          email: email,
+          password: password,
+        },
         {
           headers: {
             'ngrok-skip-browser-warning': '69420',
@@ -68,11 +63,10 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log(response.headers);
         const accessToken = response.headers.get('Authorization').split(' ')[1];
         const refreshToken = response.headers.get('Refresh');
-        const memberId = response.data.memberId;
-        setTokenCookie('Authorization', {
+
+        setTokenCookie('id', accessToken, {
           maxAge: 60 * 30000,
         });
         setRefreshCookie('Refresh', refreshToken, {
@@ -81,12 +75,12 @@ function Login() {
         if (tokenCookie && refreshCookie) {
           dispatch(authActions.login());
         }
-        navigate('/');
+        navigate(-1);
       })
-
       .catch((err) => {
-        // if (err.response.status === 401) {
-        //   console.log(err.response.data);
+        if (err.response.status === 401) {
+          alert('이메일 패스워드를 확인해주세요!');
+        }
       });
   };
 
@@ -94,19 +88,21 @@ function Login() {
     <form>
       <div className="login">
         <div className="stofbtn">
-          <svg
-            aria-hidden="true"
-            className="native svg-icon iconLogoGlyphMd"
-            width="32"
-            height="37"
-            viewBox="0 0 32 37"
-          >
-            …<path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
-            <path
-              d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
-              fill="#F48024"
-            ></path>
-          </svg>
+          <Link to={'/'}>
+            <svg
+              aria-hidden="true"
+              className="native svg-icon iconLogoGlyphMd"
+              width="32"
+              height="37"
+              viewBox="0 0 32 37"
+            >
+              …<path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
+              <path
+                d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+                fill="#F48024"
+              ></path>
+            </svg>
+          </Link>
         </div>
         <div className="content">
           <div className="loginbox">

@@ -1,12 +1,12 @@
 import RightNav from '../RightNav/RightNav';
+import { useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './Questions.css';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { REDIRECT_URI } from '../Apiurl';
-
 import styled from 'styled-components';
 import AnswerList from './AnswerList';
 const Top = styled.div`
@@ -15,11 +15,26 @@ const Top = styled.div`
   border-style: solid;
   border-color: hsl(210, 8%, 85%);
 `;
+const Nav = styled.div`
+  margin-top: -85px;
+`;
+const Edit = styled.div`
+  .ql-container {
+    min-height: 18rem;
+    max-height: 18rem;
+    height: 100%;
+    width: 700px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 function Question() {
   // const questionId = useParams();
   const { id } = useParams();
-  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const [question, setQuestion] = useState({});
   const [answerBody, setAnswerBody] = useState('');
 
@@ -56,6 +71,22 @@ function Question() {
   useEffect(() => {
     fetchData();
   }, []);
+  const deleteHandler = async () => {
+    if (
+      window.confirm(
+        '해당 게시물을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.'
+      )
+    )
+      await axios
+        .delete(`${REDIRECT_URI}questions/${id}`, {
+          headers: {
+            'Content-Type': `application/json`,
+            'ngrok-skip-browser-warning': '69420',
+          },
+        })
+        .then(navigate('/'))
+        .catch((error) => console.log(error));
+  };
 
   // 삽질의 흔적
   // let chk_array = JSON.stringify(question.questionBody);
@@ -281,13 +312,16 @@ function Question() {
                       >
                         Edit
                       </button>
-                      <button
-                        type="button"
-                        className="postEditBtn"
-                        title="Revise and improve this post"
-                      >
-                        Delete
-                      </button>
+                      {isAuth ? (
+                        <button
+                          type="button"
+                          onClick={deleteHandler}
+                          className="postEditBtn"
+                          title="Revise and improve this post"
+                        >
+                          Delete
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                 </div>
@@ -305,7 +339,11 @@ function Question() {
                 {' '}
                 <h2 className="yourAnswer">Your Answer</h2>
               </Top>
-              <ReactQuill onChange={setAnswerBody} value={answerBody} />
+
+              <Edit>
+                <ReactQuill onChange={setAnswerBody} value={answerBody} />
+              </Edit>
+
               <div className="form-submit">
                 <button
                   id="submit-button"
@@ -319,7 +357,9 @@ function Question() {
             </div>
           </div>
           <div className="itemRight">
-            <RightNav />
+            <Nav>
+              <RightNav />
+            </Nav>
           </div>
         </div>
       </div>
