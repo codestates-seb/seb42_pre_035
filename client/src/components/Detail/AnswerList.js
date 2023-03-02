@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react';
 import { REDIRECT_URI } from '../Apiurl';
 function AnswerList() {
   const { id } = useParams();
-  console.log('POST' + id);
+
   const [answerBody, setAnswerBody] = useState(null);
-  console.log('answer바디엔?' + answerBody);
 
   useEffect(() => {
     axios

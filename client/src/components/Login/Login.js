@@ -75,7 +75,8 @@ function Login() {
         if (tokenCookie && refreshCookie) {
           dispatch(authActions.login());
         }
-        navigate(-1);
+
+        navigate('/');
       })
       .catch((err) => {
         if (err.response.status === 401) {

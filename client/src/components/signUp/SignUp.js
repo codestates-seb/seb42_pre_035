@@ -44,8 +44,6 @@ function signUp() {
     if (isemail && isPassword) alert('성공');
     navigate('/login');
   };
-  console.log('이메일' + isemail);
-  console.log('패스워드' + isPassword);
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);

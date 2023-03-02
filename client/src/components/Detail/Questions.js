@@ -107,7 +107,7 @@ function Question() {
               {question.title}
             </h1>
             <div className="side">
-              <Link to="/questions">
+              <Link to={isAuth ? '/questions' : null}>
                 <button className="questionsBtn">Ask Question</button>
               </Link>
             </div>
