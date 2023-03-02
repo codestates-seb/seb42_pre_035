@@ -1,6 +1,5 @@
 package com.team035.pre_project35.user.mapper;
 
-import com.team035.pre_project35.user.dto.UserDto;
 import com.team035.pre_project35.user.entity.User;
 import java.util.ArrayList;
 import java.util.List;

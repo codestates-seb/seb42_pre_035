@@ -1,7 +1,8 @@
 package com.team035.pre_project35.user.controller;
 
 import com.team035.pre_project35.helper.UriCreator;
-import com.team035.pre_project35.user.dto.UserDto;
+import com.team035.pre_project35.user.dto.UserPatchDto;
+import com.team035.pre_project35.user.dto.UserPostDto;
 import com.team035.pre_project35.user.entity.User;
 import com.team035.pre_project35.user.mapper.UserMapper;
 import com.team035.pre_project35.user.service.UserService;
@@ -30,10 +31,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post userPostDto){
-        User user = mapper.userPostDtoToUser(userPostDto);
+    public ResponseEntity postUser(@Valid @RequestBody UserPostDto userPostDto){
 
-        User createUser = userService.createUser(user);
+        User createUser = userService.createUser(mapper.userPostDtoToUser(userPostDto));
 
         URI location = UriCreator.createUri(USER_DEFAULT_URL, createUser.getUserId());
 
@@ -43,11 +43,11 @@ public class UserController {
 
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@PathVariable("user-id") @Positive int userId,
-                                    @Valid @RequestBody UserDto.Patch requestBody){
+                                    @Valid @RequestBody UserPatchDto userPatchDto){
 
-        requestBody.setUserId(userId);
+        userPatchDto.setUserId(userId);
 
-        User updateUser = userService.updateUser(mapper.userPatchToUser(requestBody));
+        User updateUser = userService.updateUser(mapper.userPatchToUser(userPatchDto));
 
         return new ResponseEntity<>(mapper.userToUserResponse(updateUser), HttpStatus.OK);
     }
