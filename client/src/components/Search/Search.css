@@ -38,18 +38,7 @@
   line-height: 30px;
   font-size: 13px;
 }
-.askQuestionBtn{
-  cursor: pointer;
-  padding: .7em;
-  font-size: 13px;
-  color: white;
-  background-color: hsl(206,100%,52%);
-  border-radius: 3px;
-  border: solid 1.5px  rgba(221, 221, 221, 0.635);
-  border-style: inset;
-  line-height: 30px;
 
-}
 .askQuestionBtn:hover{
 background-color: hsl(206,100%,40%);
 }
