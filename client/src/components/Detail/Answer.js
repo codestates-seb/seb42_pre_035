@@ -3,7 +3,9 @@
 import styled from 'styled-components';
 
 const Top = styled.div`
-  border-top: 1px solid gray;
+  border-top: 0.1px;
+  border-style: solid;
+  border-color: hsl(210, 8%, 85%);
   h1 {
     font-weight: bold;
     font-size: 19px;

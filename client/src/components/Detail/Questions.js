@@ -11,7 +11,9 @@ import styled from 'styled-components';
 import AnswerList from './AnswerList';
 const Top = styled.div`
   margin-top: 10px;
-  border-top: 1px solid gray;
+  border-top: 0.1px;
+  border-style: solid;
+  border-color: hsl(210, 8%, 85%);
 `;
 
 function Question() {
@@ -275,11 +277,16 @@ function Question() {
                       <button
                         type="button"
                         className="postEditBtn"
-                        data-gps-track="post.click({ item: 6, priv: -1, post_type: 1 }); suggestededit.queue_full"
                         title="Revise and improve this post"
-                        data-error-message='There are <a href="https://meta.stackexchange.com/questions/84362/whats-the-fixed-size-of-the-suggested-edit-queue">too many pending edits</a> on Stack Overflow. Please try again later.'
                       >
                         Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="postEditBtn"
+                        title="Revise and improve this post"
+                      >
+                        Delete
                       </button>
                     </div>
                   </div>
